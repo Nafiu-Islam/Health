@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Data Visualization Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Health Data Visualization Tool</h1>
+        <!-- Form to submit health data -->
+        <form action="/submit" method="POST">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required><br>
+            
+            <label for="heart_rate">Heart Rate:</label>
+            <input type="number" id="heart_rate" name="heart_rate" required><br>
+            
+            <label for="steps">Steps:</label>
+            <input type="number" id="steps" name="steps" required><br>
+            
+            <label for="sleep_hours">Sleep Hours:</label>
+            <input type="number" id="sleep_hours" name="sleep_hours" step="0.1" required><br>
+            
+            <button type="submit">Submit Data</button>
+        </form>
+
+        <h2>Visualizations</h2>
+        <ul>
+            <li><a href="/visualize/heart_rate">View Heart Rate Over Time</a></li>
+            <li><a href="/visualize/steps">View Steps Per Day</a></li>
+        </ul>
+
+        {% if chart_type == 'heart_rate' %}
+        <img src="{{ url_for('static', filename='heart_rate_plot.png') }}" alt="Heart Rate Plot">
+        {% elif chart_type == 'steps' %}
+        <img src="{{ url_for('static', filename='steps_plot.png') }}" alt="Steps Plot">
+        {% endif %}
+    </div>
+</body>
+</html>
